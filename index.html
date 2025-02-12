@@ -244,7 +244,7 @@
           </div>
 
           <!-- Logo -->
-          <div class="text-3xl font-serif text-white" id="logo">
+          <div class="text-3xl font-serif text-white flex items-center gap-4" id="logo">
             <span class="text-amber-300">S</span>
             <span>&</span>
             <span class="text-amber-300">J</span>
@@ -279,18 +279,24 @@
                 <span>Family</span>
               </span>
             </a>
+            <!-- Add audio control button here -->
+            <button id="audioControl" class="text-2xl text-amber-300 hover:text-amber-400 transition-colors">
+              <i class="fas fa-volume-up" id="audioIcon"></i>
+            </button>
           </div>
 
           <!-- Mobile Menu Button -->
+          
           <button class="lg:hidden text-white" id="mobileMenuBtn">
             <i class="fas fa-bars text-2xl"></i>
           </button>
         </div>
       </div>
-
+      
       <!-- Mobile Menu -->
       <div class="lg:hidden hidden" id="mobileMenu">
         <div class="px-4 py-4 space-y-4 glass">
+
           <a
             href="#home"
             class="block text-white hover:text-rose-300 transition-colors"
@@ -1062,9 +1068,15 @@ gsap.from("#logo", {
     duration: 1,
     ease: "back.out(1.7)"
 });
-
       }
+
     </script>
+
+    <!-- Add audio element -->
+    <audio id="bgMusic" loop>
+      <source src="audio.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
   </body>
 </html>
   
