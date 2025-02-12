@@ -116,3 +116,52 @@ document.getElementById('rsvpForm').addEventListener('submit', function(e) {
     this.style.display = 'none';
     document.getElementById('successMessage').classList.remove('hidden');
 });
+
+// Audio Control
+document.addEventListener('DOMContentLoaded', function() {
+    const audio = document.getElementById('bgMusic');
+    const audioControl = document.getElementById('audioControl');
+    const audioIcon = document.getElementById('audioIcon');
+    let isPlaying = true;
+
+    // Function to play/pause audio
+    function toggleAudio() {
+        if (isPlaying) {
+            audio.pause();
+            audioIcon.classList.remove('fa-volume-up');
+            audioIcon.classList.add('fa-volume-mute');
+        } else {
+            audio.play();
+            audioIcon.classList.remove('fa-volume-mute');
+            audioIcon.classList.add('fa-volume-up');
+        }
+        isPlaying = !isPlaying;
+    }
+
+    // Add click event listener to audio control button
+    audioControl.addEventListener('click', toggleAudio);
+
+    // Force play on all possible user interactions
+    const forcePlay = () => {
+        audio.play().then(() => {
+            isPlaying = true;
+            audioIcon.classList.remove('fa-volume-mute');
+            audioIcon.classList.add('fa-volume-up');
+        }).catch(e => console.log("Playback failed:", e));
+    };
+
+    // Try to play immediately
+    forcePlay();
+
+    // Try to play on various user interactions
+    ['click', 'touchstart', 'scroll'].forEach(event => {
+        document.addEventListener(event, function playOnInteraction() {
+            forcePlay();
+            // Remove the event listener after first interaction
+            document.removeEventListener(event, playOnInteraction);
+        }, { once: true });
+    });
+
+    // Additional attempt to play after a short delay
+    setTimeout(forcePlay, 1000);
+});
